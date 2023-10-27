@@ -4,7 +4,6 @@ import BookList from "./components/BookList";
 import CustomSnackbar from "./components/CustomSnackbar";
 import CustomDialog from "./components/CustomDialog";
 // import { Dialog } from "@mui/material";
-import BulkOperations from "./components/BulkOperations";
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -68,7 +67,7 @@ function App() {
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   //const [DialogTitle, setDialogTitle] = useState("");
-  const [DialogContent, setDialogContent] = useState("");
+  const [DialogContent] = useState("");
   const [DialogResult, setDialogResult] = useState(true);
 
   const openDialog = () => {
@@ -89,14 +88,9 @@ function App() {
     closeDialog();
   };
 
-  const buildDialog = (content) => {
-    setDialogContent(content);
-    openDialog();
-  };
-
   // Bulk Operations
 
-  const handleBulkEdit = () => {};
+  //const handleBulkEdit = () => {};
 
   const handleBulkDelete = () => {
     const result = window.confirm("Are you sure you want to delete this book?");
@@ -110,9 +104,26 @@ function App() {
     }
   };
 
+  const updateBooks = (id,state) => {
+    const updatedBooks = books.map((book) => {
+      if (book.id === id) {
+        handleOpenSnackbar("Entry modified", "success");
+        return { ...book, isChecked: state };
+      }
+      console.log(book);
+      return book;
+    });
+    setBooks(updatedBooks);
+  };
+
   return (
     <div className="App">
-      <BookList onEdit={editBookById} books={books} onDelete={deleteBookById} />
+      <BookList
+        onEdit={editBookById}
+        books={books}
+        onDelete={deleteBookById}
+        updateBook={updateBooks}
+      />
       <BookCreate onCreate={createBook} />
       <CustomSnackbar
         open={snackbarOpen}
