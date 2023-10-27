@@ -14,7 +14,7 @@ function App() {
       if (DialogResult) {
         const updatedBooks = [
           ...books,
-          { id: Math.round(Math.random() * 9999), title, isChecked: false },
+          { id: Math.round(Math.random() * 9999), title, isChecked: false, isDone: false},
         ];
         setBooks(updatedBooks);
         handleOpenSnackbar("Entry added", "success");
@@ -107,7 +107,6 @@ function App() {
   const updateBooks = (id,state) => {
     const updatedBooks = books.map((book) => {
       if (book.id === id) {
-        handleOpenSnackbar("Entry modified", "success");
         return { ...book, isChecked: state };
       }
       console.log(book);
@@ -115,6 +114,18 @@ function App() {
     });
     setBooks(updatedBooks);
   };
+
+  const markTaskDone = () => {
+    const updatedBooks = books.map((book) => {
+      if (book.isChecked === true) {
+        return { ...book, isDone: !book.isDone };
+      }
+      console.log(book);
+      return book;
+    });
+    console.log(updatedBooks);
+    setBooks(updatedBooks);
+  }
 
   return (
     <div className="App">
@@ -132,6 +143,7 @@ function App() {
         setSeverity={severity}
       />
 
+      <button onClick={markTaskDone}>Mark Books as "Done"</button>
       <button onClick={handleBulkDelete}>Bulk Delete</button>
 
       {/* <BulkOperations
