@@ -3,18 +3,22 @@ import BookCreate from "./components/BookCreate";
 import BookList from "./components/BookList";
 import CustomSnackbar from "./components/CustomSnackbar";
 import CustomDialog from "./components/CustomDialog";
-// import { Dialog } from "@mui/material";
+import "./App.css";
 
 function App() {
   const [books, setBooks] = useState([]);
 
   const createBook = (title) => {
     if (title !== "") {
-      //buildDialog("test");
       if (DialogResult) {
         const updatedBooks = [
           ...books,
-          { id: Math.round(Math.random() * 9999), title, isChecked: false, isDone: false},
+          {
+            id: Math.round(Math.random() * 9999),
+            title,
+            isChecked: false,
+            isDone: false,
+          },
         ];
         setBooks(updatedBooks);
         handleOpenSnackbar("Entry added", "success");
@@ -66,7 +70,6 @@ function App() {
   // Dialog
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  //const [DialogTitle, setDialogTitle] = useState("");
   const [DialogContent] = useState("");
   const [DialogResult, setDialogResult] = useState(true);
 
@@ -90,8 +93,6 @@ function App() {
 
   // Bulk Operations
 
-  //const handleBulkEdit = () => {};
-
   const handleBulkDelete = () => {
     const result = window.confirm("Are you sure you want to delete this book?");
     if (result) {
@@ -104,7 +105,7 @@ function App() {
     }
   };
 
-  const updateBooks = (id,state) => {
+  const updateBooks = (id, state) => {
     const updatedBooks = books.map((book) => {
       if (book.id === id) {
         return { ...book, isChecked: state };
@@ -125,7 +126,7 @@ function App() {
     });
     console.log(updatedBooks);
     setBooks(updatedBooks);
-  }
+  };
 
   return (
     <div className="App">
@@ -145,11 +146,6 @@ function App() {
 
       <button onClick={markTaskDone}>Mark Books as "Done"</button>
       <button onClick={handleBulkDelete}>Bulk Delete</button>
-
-      {/* <BulkOperations
-        handleBulkEdit={handleBulkEdit}
-        handleBulkDelete={handleBulkDelete}
-      /> */}
 
       <button onClick={openDialog}>Open Dialog</button>
       <CustomDialog
