@@ -1,16 +1,25 @@
+body {
+  background-color: #0D1B2A;
+}
+
 .App {
   margin-top: 10px;
   text-align: center;
-  border: solid 5px darkorchid;
+  border: solid 5px #1B263B;
   font-family: Monospace;
   font-size: 20px;
+  width: 80%;
+  margin-left: 10%;
+  background-color: #415A77;
 }
 /* afisarea intrarilor */
 .book-list {
-  background-color: aquamarine;
+  background-color: #778DA9;
+  border: solid 3px #1B263B;
   border-radius: 25px;
   width: 50%;
   margin-left: 25%;
+  margin-top: 10px;
   display: flex;
   flex: 3;
   flex-wrap: wrap;
@@ -19,16 +28,16 @@
 }
 
 .book-show {
-  background-color: bisque;
+  background-color: #E0E1DD;
   width: fit-content;
-  border: solid 3px black;
+  border: solid 3px #1B263B;
   border-radius: 20px;
   margin: 10px;
 }
 
-.book-show button {
-  background-color: blue;
-  color: aliceblue;
+button {
+  background-color: #023e8a;
+  color: #f1faee;
   border: none;
   margin:5px;
   min-height: 30px;
@@ -55,12 +64,20 @@ h3 {
 }
 
 .book-edit{
-  display: flex;
-  flex-direction: column;
+  margin-top: 40px;
+  /* display: flex; */
+  /* flex-direction: column; */
   align-items: center;
 }
 
-label {
+.book-edit label {
   width: 30%;
   margin: 10px;
 }
+
+/* mesaj pentru done */
+
+.done-msg {
+  margin: 10px 0 -33px 0;
+}
+

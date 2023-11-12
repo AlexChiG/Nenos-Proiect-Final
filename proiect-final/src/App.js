@@ -3,7 +3,14 @@ import BookCreate from "./components/BookCreate";
 import BookList from "./components/BookList";
 import CustomSnackbar from "./components/CustomSnackbar";
 import CustomDialog from "./components/CustomDialog";
+import FormControlLabel from '@mui/material/FormControlLabel';
+
+import MaterialUISwitch from "./components/LightDarkSwitch";
+
 import "./App.css";
+import "./styles/dark.css";
+import "./styles/light.css";
+
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -32,10 +39,12 @@ function App() {
     const result = window.confirm("Are you sure you want to delete this book?");
     if (result) {
       const updatedBooks = books.filter((book) => {
-        handleOpenSnackbar("Entry deleted", "success");
+        handleOpenSnackbar("Entry deleted.", "success");
         return book.id !== id;
       });
       setBooks(updatedBooks);
+    } else {
+      handleOpenSnackbar("Deletion cancelled.", "error");
     }
   };
 
@@ -97,11 +106,13 @@ function App() {
     const result = window.confirm("Are you sure you want to delete this book?");
     if (result) {
       const updatedBooks = books.filter((book) => {
-        handleOpenSnackbar("Entry deleted", "success");
+        handleOpenSnackbar("Entry deleted.", "success");
         return !book.isChecked;
       });
       console.log(updatedBooks);
       setBooks(updatedBooks);
+    } else {
+      handleOpenSnackbar("Deletion canceled.", "error");
     }
   };
 
@@ -124,12 +135,20 @@ function App() {
       console.log(book);
       return book;
     });
+    handleOpenSnackbar("Tasks marked as done.", "success");
     console.log(updatedBooks);
     setBooks(updatedBooks);
   };
 
+  // light / dark theme
+  const [theme, switchTheme] = useState("dark");
+
+  const toggleTheme = () => {
+    switchTheme((curr) => (curr === "light" ? "dark" : "light"));
+  };
+
   return (
-    <div className="App">
+    <div className="App" id={theme}>
       <BookList
         onEdit={editBookById}
         books={books}
@@ -154,6 +173,11 @@ function App() {
         onNo={noDialogResult}
         title="Confirm changes?" //{DialogTitle}
         content={DialogContent}
+      />
+      <FormControlLabel
+        control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
+        onChange={toggleTheme}
+        label="MUI switch"
       />
     </div>
   );

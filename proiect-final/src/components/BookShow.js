@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import BookEdit from "./BookEdit";
 import Checkbox from "@mui/material/Checkbox";
 
-function BookShow({ book, onDelete, onEdit, updateBook }) {
+function BookShow({ book, onDelete, onEdit, updateBook}) {
   const [showEdit, setShowEdit] = useState(false);
 
   const handleDeleteClick = () => {
@@ -44,6 +44,7 @@ function BookShow({ book, onDelete, onEdit, updateBook }) {
 
   return (
     <div className="book-show">
+      {book.isDone && <div class="done-msg">This task is done!</div>}
       <div>{content}</div>
       <div className="actions">
         <button className="edit" onClick={handleEditClick}>
@@ -57,7 +58,7 @@ function BookShow({ book, onDelete, onEdit, updateBook }) {
           onChange={handleCheckboxChange}
           inputProps={{ "aria-label": "controlled" }}
         />
-      </div>
+      </div>  
     </div>
   );
 }
