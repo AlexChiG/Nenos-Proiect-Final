@@ -1,3 +1,30 @@
-#light{
-    background-color:white;
+#light {
+  background-color: #ede0d4;
+}
+#light .book-list {
+    background-color: #E6CCB2;
+}
+
+#light .book-show {
+}
+
+#light .book-show button,
+#light .book-edit button,
+#light .book-create button,
+#light .control button {
+    background-color: #7F5539;
+}
+
+#light .book-show button:hover,
+#light .book-edit button:hover,
+#light .book-create button:hover,
+#light .control button:hover {
+background-color: #9C6644;
+}
+
+#light .book-show button:active,
+#light .book-edit button:active,
+#light .book-create button:active,
+#light .control button:active {
+background-color: #d4a373;
 }

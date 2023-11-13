@@ -8,7 +8,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import MaterialUISwitch from "./components/LightDarkSwitch";
 
 import "./App.css";
-import "./styles/dark.css";
 import "./styles/light.css";
 
 
@@ -162,11 +161,16 @@ function App() {
         handleClose={handleCloseSnackbar}
         setSeverity={severity}
       />
-
+      <div className="control">
       <button onClick={markTaskDone}>Mark Books as "Done"</button>
       <button onClick={handleBulkDelete}>Bulk Delete</button>
 
       <button onClick={openDialog}>Open Dialog</button>
+      <FormControlLabel
+        control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
+        onChange={toggleTheme}
+      />
+      </div>
       <CustomDialog
         open={isDialogOpen}
         onYes={yesDialogResult}
@@ -174,11 +178,7 @@ function App() {
         title="Confirm changes?" //{DialogTitle}
         content={DialogContent}
       />
-      <FormControlLabel
-        control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
-        onChange={toggleTheme}
-        label="MUI switch"
-      />
+      
     </div>
   );
 }

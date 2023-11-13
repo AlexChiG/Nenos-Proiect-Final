@@ -1,5 +1,5 @@
 body {
-  background-color: #0D1B2A;
+  background-color: #666;
 }
 
 .App {
@@ -17,8 +17,8 @@ body {
   background-color: #778DA9;
   border: solid 3px #1B263B;
   border-radius: 25px;
-  width: 50%;
-  margin-left: 25%;
+  width: 65%;
+  margin-left: 17.5%;
   margin-top: 10px;
   display: flex;
   flex: 3;
@@ -45,7 +45,7 @@ button {
   border-radius: 20px;
 }
 
-.book-show button:hover {
+ button:hover {
   background-color: blueviolet;
 }
 
