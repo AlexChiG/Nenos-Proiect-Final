@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import BookEdit from "./BookEdit";
 import Checkbox from "@mui/material/Checkbox";
 
-function BookShow({ book, onDelete, onEdit, updateBook}) {
+function BookShow({ book, onDelete, onEdit, updateBook, markDone}) {
   const [showEdit, setShowEdit] = useState(false);
 
   const handleDeleteClick = () => {
@@ -20,7 +20,11 @@ function BookShow({ book, onDelete, onEdit, updateBook}) {
     setShowEdit(false);
   };
 
-  let content = <h3>{book.title}</h3>;
+  const handleDone = () => {
+    markDone(book.id)
+  }
+
+  let content = <h3 onClick={handleDone}>{book.title}</h3>;
   if (showEdit) {
     content = (
       <BookEdit

@@ -2,6 +2,10 @@ body {
   background-color: #666;
 }
 
+h3 {
+  user-select:none;
+}
+
 .App {
   margin-top: 10px;
   text-align: center;
@@ -49,7 +53,7 @@ button {
   background-color: blueviolet;
 }
 
-.book-show button:active {
+button:active {
   background-color: lightblue;
 }
 

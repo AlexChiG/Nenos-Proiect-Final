@@ -2,33 +2,29 @@ import React, { useState } from "react";
 import BookCreate from "./components/BookCreate";
 import BookList from "./components/BookList";
 import CustomSnackbar from "./components/CustomSnackbar";
-import CustomDialog from "./components/CustomDialog";
-import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 import MaterialUISwitch from "./components/LightDarkSwitch";
 
 import "./App.css";
 import "./styles/light.css";
 
-
 function App() {
   const [books, setBooks] = useState([]);
 
   const createBook = (title) => {
     if (title !== "") {
-      if (DialogResult) {
-        const updatedBooks = [
-          ...books,
-          {
-            id: Math.round(Math.random() * 9999),
-            title,
-            isChecked: false,
-            isDone: false,
-          },
-        ];
-        setBooks(updatedBooks);
-        handleOpenSnackbar("Entry added", "success");
-      }
+      const updatedBooks = [
+        ...books,
+        {
+          id: Math.round(Math.random() * 9999),
+          title,
+          isChecked: false,
+          isDone: false,
+        },
+      ];
+      setBooks(updatedBooks);
+      handleOpenSnackbar("Entry added", "success");
     } else {
       handleOpenSnackbar("Must enter a title", "error");
     }
@@ -74,31 +70,6 @@ function App() {
     setSnackbarOpen(false);
     setSnackbarMessage("");
   };
-
-  // Dialog
-
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [DialogContent] = useState("");
-  const [DialogResult, setDialogResult] = useState(true);
-
-  const openDialog = () => {
-    setIsDialogOpen(true);
-  };
-
-  const closeDialog = () => {
-    setIsDialogOpen(false);
-  };
-
-  const yesDialogResult = () => {
-    setDialogResult(true);
-    closeDialog();
-  };
-
-  const noDialogResult = () => {
-    setDialogResult(false);
-    closeDialog();
-  };
-
   // Bulk Operations
 
   const handleBulkDelete = () => {
@@ -146,6 +117,37 @@ function App() {
     switchTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
 
+  // mark tasks as done by clicking on them
+
+  const markDone = (id) => {
+    const updatedBooks = books.map((book) => {
+      if (book.id === id) {
+        handleOpenSnackbar("Task done status changed.", "success");
+        return { ...book, isDone: !book.isDone };
+      }
+      return book;
+    });
+    setBooks(updatedBooks);
+  };
+
+  // filters
+
+  //const [oldBooks, setOldBooks] = useState([]);
+
+  const showAll = () => {
+    // crash
+    // if (Object.keys(oldBooks).length === 0) {
+    //   setBooks(oldBooks);
+    //   setOldBooks("");
+    //   console.log("test");
+    // }
+    // console.log(oldBooks);
+  };
+
+  const showDone = () => {};
+
+  const showUndone = () => {};
+
   return (
     <div className="App" id={theme}>
       <BookList
@@ -153,6 +155,7 @@ function App() {
         books={books}
         onDelete={deleteBookById}
         updateBook={updateBooks}
+        markDone={markDone}
       />
       <BookCreate onCreate={createBook} />
       <CustomSnackbar
@@ -162,23 +165,18 @@ function App() {
         setSeverity={severity}
       />
       <div className="control">
-      <button onClick={markTaskDone}>Mark Books as "Done"</button>
-      <button onClick={handleBulkDelete}>Bulk Delete</button>
-
-      <button onClick={openDialog}>Open Dialog</button>
-      <FormControlLabel
-        control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
-        onChange={toggleTheme}
-      />
+        <button onClick={markTaskDone}>Mark Tasks as "Done"</button>
+        <button onClick={handleBulkDelete}>Bulk Delete</button>
+        <FormControlLabel
+          control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
+          onChange={toggleTheme}
+        />
       </div>
-      <CustomDialog
-        open={isDialogOpen}
-        onYes={yesDialogResult}
-        onNo={noDialogResult}
-        title="Confirm changes?" //{DialogTitle}
-        content={DialogContent}
-      />
-      
+      <div className="filter">
+        <button onClick={showAll}>Show All Tasks</button>
+        <button onClick={showDone}>Show Done Tasks</button>
+        <button onClick={showUndone}>Show Undone Tasks</button>
+      </div>
     </div>
   );
 }
