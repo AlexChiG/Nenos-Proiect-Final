@@ -58,18 +58,18 @@ function App() {
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [severity, setSeverity] = useState("");
-
+  const [severity, setSeverity] = useState('success');
   const handleOpenSnackbar = (message, severity) => {
     setSnackbarMessage(message);
     setSeverity(severity);
     setSnackbarOpen(true);
-  };
+  }
 
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
     setSnackbarMessage("");
   };
+
   // Bulk Operations
 
   const handleBulkDelete = () => {
@@ -132,19 +132,39 @@ function App() {
 
   // filters
 
-  //const [oldBooks, setOldBooks] = useState([]);
+  const [oldBooks, setOldBooks] = useState([]);
+
+  function isOldBooksEmpty() {
+    return Object.keys(oldBooks).length === 0;
+  }
+
+  const testare = () => {
+    console.log("books: " + books);
+    console.log("old books: " + oldBooks);
+  }
 
   const showAll = () => {
-    // crash
-    // if (Object.keys(oldBooks).length === 0) {
-    //   setBooks(oldBooks);
-    //   setOldBooks("");
-    //   console.log("test");
-    // }
-    // console.log(oldBooks);
+    if (!isOldBooksEmpty()) {
+      setBooks(...oldBooks);
+      setOldBooks("");
+      console.log("test");
+    }
+    testare();
   };
 
-  const showDone = () => {};
+  const showDone = () => {
+    if (isOldBooksEmpty()) {
+      setOldBooks(...books);
+      const updatedBooks = books.map((book) => {
+        if (book.isDone === true) {
+          return { ...book};
+        }
+        return book;
+      });
+      setBooks(updatedBooks);
+    }
+    testare();
+  };
 
   const showUndone = () => {};
 

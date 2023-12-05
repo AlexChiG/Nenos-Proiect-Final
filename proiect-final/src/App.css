@@ -29,6 +29,7 @@ h3 {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  min-height: 172px;
 }
 
 .book-show {
